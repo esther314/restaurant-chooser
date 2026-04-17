@@ -5,318 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Chooser</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 100%;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 2em;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 0.95em;
-        }
-
-        .input-section {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-        input {
-            flex: 1;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .add-btn {
-            padding: 12px 20px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: 600;
-            transition: background 0.3s, transform 0.1s;
-        }
-
-        .add-btn:hover {
-            background: #5568d3;
-        }
-
-        .add-btn:active {
-            transform: scale(0.98);
-        }
-
-        .restaurants-section {
-            margin-bottom: 25px;
-        }
-
-        .restaurants-label {
-            color: #666;
-            font-size: 0.9em;
-            font-weight: 600;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .restaurants-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            min-height: 50px;
-            align-content: flex-start;
-        }
-
-        .restaurant-tag {
-            background: #f0f0f0;
-            padding: 8px 12px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95em;
-            color: #333;
-        }
-
-        .remove-btn {
-            background: none;
-            border: none;
-            color: #999;
-            cursor: pointer;
-            font-size: 1.2em;
-            padding: 0;
-            transition: color 0.2s;
-        }
-
-        .remove-btn:hover {
-            color: #667eea;
-        }
-
-        .choose-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.1s, box-shadow 0.3s;
-            margin-bottom: 15px;
-        }
-
-        .choose-btn:hover {
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .choose-btn:active {
-            transform: scale(0.98);
-        }
-
-        .choose-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        .result-section {
-            text-align: center;
-            min-height: 100px;
+            margin: 0;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            animation: gradient 5s ease infinite;
+            overflow: hidden;
         }
-
-        .result-label {
-            color: #999;
-            font-size: 0.9em;
-            margin-bottom: 8px;
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-
-        .result {
-            font-size: 2em;
-            font-weight: 700;
-            color: #667eea;
-            word-break: break-word;
+        h1 {
+            font-size: 3em;
+            color: white;
+            animation: bounce 2s infinite;
         }
-
-        .empty-message {
-            color: #999;
-            font-size: 0.95em;
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
         }
-
-        .clear-btn {
-            width: 100%;
-            padding: 10px;
-            background: #f0f0f0;
-            color: #666;
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .tag {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1.2em;
+            color: #333;
+            transition: transform 0.3s;
+        }
+        .tag:hover {
+            transform: scale(1.1);
+            animation: pulse 0.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            color: white;
+            background: #ff6b6b;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 0.95em;
-            transition: background 0.2s;
+            transition: all 0.3s ease;
         }
-
-        .clear-btn:hover {
-            background: #e0e0e0;
+        button:hover {
+            background: #ff3b3b;
+            animation: pulse 0.5s infinite;
+        }
+        .confetti {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🍽️ Restaurant Chooser</h1>
-        <p class="subtitle">Can't decide? Let fate decide!</p>
-
-        <div class="input-section">
-            <input 
-                type="text" 
-                id="restaurantInput" 
-                placeholder="Enter restaurant name..."
-                autocomplete="off"
-            >
-            <button class="add-btn" onclick="addRestaurant()">Add</button>
-        </div>
-
-        <div class="restaurants-section">
-            <label class="restaurants-label">Restaurants:</label>
-            <div class="restaurants-list" id="restaurantsList"></div>
-        </div>
-
-        <button class="choose-btn" id="chooseBtn" onclick="chooseRestaurant()" disabled>
-            Pick a Restaurant! 🎲
-        </button>
-
-        <div class="result-section" id="resultSection">
-            <p class="empty-message">Add restaurants and click the button!</p>
-        </div>
-
-        <button class="clear-btn" onclick="clearAll()">Clear All</button>
+    <h1>Restaurant Chooser</h1>
+    <div class="tags">
+        <div class="tag">Italian</div>
+        <div class="tag">Mexican</div>
+        <div class="tag">Thai</div>
+        <div class="tag">Chinese</div>
+        <div class="tag">Indian</div>
     </div>
+    <button onclick="chooseRestaurant()">Choose a Restaurant!</button>
+    <div class="confetti"></div>
 
     <script>
-        let restaurants = [];
-
-        const restaurantInput = document.getElementById('restaurantInput');
-        const restaurantsList = document.getElementById('restaurantsList');
-        const chooseBtn = document.getElementById('chooseBtn');
-        const resultSection = document.getElementById('resultSection');
-
-        // Add restaurant on button click
-        function addRestaurant() {
-            const name = restaurantInput.value.trim();
-            
-            if (!name) {
-                alert('Please enter a restaurant name');
-                return;
-            }
-
-            if (restaurants.includes(name)) {
-                alert('This restaurant is already on the list');
-                restaurantInput.value = '';
-                return;
-            }
-
-            restaurants.push(name);
-            restaurantInput.value = '';
-            renderRestaurants();
-            restaurantInput.focus();
-        }
-
-        // Add restaurant on Enter key
-        restaurantInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                addRestaurant();
-            }
-        });
-
-        // Remove restaurant
-        function removeRestaurant(index) {
-            restaurants.splice(index, 1);
-            renderRestaurants();
-        }
-
-        // Render restaurants list
-        function renderRestaurants() {
-            restaurantsList.innerHTML = '';
-            restaurants.forEach((restaurant, index) => {
-                const tag = document.createElement('div');
-                tag.className = 'restaurant-tag';
-                tag.innerHTML = `
-                    ${restaurant}
-                    <button class="remove-btn" onclick="removeRestaurant(${index})">✕</button>
-                `;
-                restaurantsList.appendChild(tag);
-            });
-
-            chooseBtn.disabled = restaurants.length === 0;
-        }
-
-        // Choose random restaurant
         function chooseRestaurant() {
-            if (restaurants.length === 0) return;
-
-            const randomIndex = Math.floor(Math.random() * restaurants.length);
-            const chosen = restaurants[randomIndex];
-
-            resultSection.innerHTML = `
-                <p class="result-label">You should eat at:</p>
-                <p class="result">${chosen}</p>
-            `;
+            const tags = document.querySelectorAll('.tag');
+            const randomIndex = Math.floor(Math.random() * tags.length);
+            const selected = tags[randomIndex].innerText;
+            alert(`You should go to a ${selected} restaurant!`);
+            showConfetti();
         }
 
-        // Clear all
-        function clearAll() {
-            if (restaurants.length === 0) return;
-            
-            if (confirm('Clear all restaurants? This cannot be undone.')) {
-                restaurants = [];
-                restaurantInput.value = '';
-                renderRestaurants();
-                resultSection.innerHTML = '<p class="empty-message">Add restaurants and click the button!</p>';
-            }
+        function showConfetti() {
+            const confetti = document.querySelector('.confetti');
+            confetti.style.display = 'block';
+            // You can add confetti animation code here
         }
-
-        // Focus input on load
-        restaurantInput.focus();
     </script>
 </body>
 </html>
